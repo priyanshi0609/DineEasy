@@ -1,6 +1,9 @@
+import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
   return (
     <View
     className="bg-red-50"
@@ -14,6 +17,12 @@ export default function Index() {
       }}
     >
       <Text>Hi i am Priyanshi  Both</Text>
+
+      <TouchableOpacity onPress={() => router.push("/home")}>
+        <Text className="text-blue-500">Go to Home</Text>
+      </TouchableOpacity>
     </View>
+
+
   );
 }
