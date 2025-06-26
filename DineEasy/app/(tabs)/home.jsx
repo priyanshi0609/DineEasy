@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
+import restaurants from "../../store/restaurants";
 
 
 // import banner from "../assets/images/homebanner.png"
@@ -21,45 +22,23 @@ import { BlurView } from "expo-blur";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
-  const router = useRouter();
-  const [restaurants, setRestaurants] = useState([]);
-  const temp = async () => {
-    const value = await AsyncStorage.getItem("isGuest");
-    const email = await AsyncStorage.getItem("userEmail");
-    console.log(value, email);
-  };
+  
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => router.push(`/restaurant/${item.name}`)}
-      className="bg-[#5f5f5f] max-h-64 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow-md"
-    >
-      <Image
-        resizeMode="cover"
-        source={{ uri: item.image }}
-        className="h-28 mt-2 mb-1 rounded-lg"
+  const renderItem=({item})=>(
+    <TouchableOpacity>
+      <Image 
+      resizeMode="cover" 
+      source={{uri:item.image}}
+      className="h-28 mt-2 mb-1 rounded-lg"
       />
-      <Text className="text-white text-lg font-bold mb-2">{item.name}</Text>
+       <Text className="text-white text-lg font-bold mb-2">{item.name}</Text>
       <Text className="text-white text-base mb-2">{item.address}</Text>
       <Text className="text-white text-base mb-2">
         Open: {item.opening} - Close: {item.closing}
-      </Text>
+      </Text> 
     </TouchableOpacity>
-  );
-
-  const getRestaurants = async () => {
-    const q = query(collection(db, "restaurants"));
-    const res = await getDocs(q);
-
-    res.forEach((item) => {
-      setRestaurants((prev) => [...prev, item.data()]);
-    });
-  };
-  useEffect(() => {
-    getRestaurants();
-    temp();
-  }, []);
-
+  )
+  
   return (
     <SafeAreaView
       style={[
@@ -99,7 +78,7 @@ export default function Home() {
             </Text>
           </BlurView>
         {/* </ImageBackground> */}
-        <View className="p-4 bg-[#2b2b2b] flex-row items-center">
+      <View className="p-4 bg-[#2b2b2b] flex-row items-center">
           <Text className="text-3xl text-white mr-2 font-semibold">
             Special Discount %
           </Text>
@@ -135,6 +114,6 @@ export default function Home() {
         )}
       </ScrollView>
     </SafeAreaView>
-  );
-}
+    );
+  }
 
