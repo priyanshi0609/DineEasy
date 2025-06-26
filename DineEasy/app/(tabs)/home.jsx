@@ -25,50 +25,54 @@ export default function Home() {
   const renderRestaurantItem = ({ item, index }) => (
     <TouchableOpacity 
       style={{
-        width: width * 0.75,
-        marginRight: 16,
-        marginLeft: index === 0 ? 16 : 0,
+        width: width * 0.8,
+        marginRight: 20,
+        marginLeft: index === 0 ? 20 : 0,
       }}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden"
-      activeOpacity={0.8}
+      className="bg-white rounded-3xl shadow-xl overflow-hidden"
+      activeOpacity={0.9}
     >
       <View className="relative">
         <Image
           resizeMode="cover"
           source={{ uri: item.image }}
-          className="h-40 w-full"
+          className="h-48 w-full"
         />
         <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.7)']}
-          className="absolute bottom-0 left-0 right-0 h-20"
+          colors={['transparent', 'rgba(0,0,0,0.8)']}
+          className="absolute bottom-0 left-0 right-0 h-24"
         />
-        <View className="absolute bottom-2 left-3 right-3">
-          <Text className="text-white text-lg font-bold" numberOfLines={1}>
+        <View className="absolute top-3 right-3 bg-black/30 px-3 py-1 rounded-full">
+          <Text className="text-white text-xs font-medium">⭐ 4.8</Text>
+        </View>
+        <View className="absolute bottom-4 left-4 right-4">
+          <Text className="text-white text-xl font-bold mb-1" numberOfLines={1}>
             {item.name}
+          </Text>
+          <Text className="text-white/80 text-sm" numberOfLines={1}>
+            {item.address}
           </Text>
         </View>
       </View>
       
-      <View className="p-4">
-        <View className="flex-row items-center mb-2">
-          <View className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-          <Text className="text-gray-600 text-sm flex-1" numberOfLines={1}>
-            {item.address}
+      <View className="p-5">
+        <View className="flex-row items-center justify-between mb-3">
+          <View className="flex-row items-center">
+            <View className="w-3 h-3 bg-emerald-500 rounded-full mr-2" />
+            <Text className="text-emerald-600 text-sm font-medium">
+              Open Now
+            </Text>
+          </View>
+          <Text className="text-gray-500 text-sm">
+            {item.opening} - {item.closing}
           </Text>
         </View>
         
-        <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Text className="text-orange-500 text-xs font-medium">
-              {item.opening} - {item.closing}
-            </Text>
-          </View>
-          <View className="bg-orange-50 px-2 py-1 rounded-full">
-            <Text className="text-orange-600 text-xs font-semibold">
-              Book Now
-            </Text>
-          </View>
-        </View>
+        <TouchableOpacity className="bg-gradient-to-r from-orange-500 to-red-500 py-3 rounded-2xl shadow-lg">
+          <Text className="text-black text-center font-bold text-base">
+            Reserve Table
+          </Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -76,99 +80,139 @@ export default function Home() {
   const renderSpecialItem = ({ item, index }) => (
     <TouchableOpacity 
       style={{
-        width: width * 0.6,
-        marginRight: 12,
-        marginLeft: index === 0 ? 16 : 0,
+        width: width * 0.7,
+        marginRight: 16,
+        marginLeft: index === 0 ? 20 : 0,
       }}
-      className="bg-gradient-to-br from-orange-400 to-red-500 rounded-xl overflow-hidden shadow-md"
-      activeOpacity={0.8}
+      className="rounded-2xl overflow-hidden shadow-lg"
+      activeOpacity={0.9}
     >
-      <View className="relative">
-        <Image
-          resizeMode="cover"
-          source={{ uri: item.image }}
-          className="h-24 w-full opacity-80"
-        />
-        <View className="absolute top-2 right-2 bg-red-500 px-2 py-1 rounded-full">
-          <Text className="text-white text-xs font-bold">20% OFF</Text>
+      <LinearGradient
+        colors={['#667eea', '#764ba2']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        className="p-1"
+      >
+        <View className="bg-white rounded-2xl overflow-hidden">
+          <View className="relative">
+            <Image
+              resizeMode="cover"
+              source={{ uri: item.image }}
+              className="h-32 w-full"
+            />
+            <LinearGradient
+              colors={['transparent', 'rgba(0,0,0,0.6)']}
+              className="absolute bottom-0 left-0 right-0 h-16"
+            />
+            <View className="absolute top-3 right-3 bg-red-500 px-3 py-1 rounded-full shadow-md">
+              <Text className="text-white text-xs font-bold">30% OFF</Text>
+            </View>
+            <View className="absolute bottom-3 left-3 right-3">
+              <Text className="text-white text-base font-bold" numberOfLines={1}>
+                {item.name}
+              </Text>
+            </View>
+          </View>
+          
+          <View className="p-4">
+            <View className="flex-row items-center justify-between">
+              <View>
+                <Text className="text-gray-800 text-sm font-semibold">
+                  Limited Offer
+                </Text>
+                <Text className="text-gray-500 text-xs">
+                  Valid until tonight
+                </Text>
+              </View>
+              <View className="bg-orange-100 px-3 py-2 rounded-full">
+                <Text className="text-orange-600 text-xs font-bold">
+                  GRAB NOW
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
-      </View>
-      
-      <View className="p-3">
-        <Text className="text-white text-sm font-bold" numberOfLines={1}>
-          {item.name}
-        </Text>
-        <Text className="text-orange-100 text-xs mt-1" numberOfLines={1}>
-          Limited Time Offer
-        </Text>
-      </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView
       style={[
-        { backgroundColor: "#fafafa" },
+        { backgroundColor: "#f8fafc" },
         Platform.OS == "android" && { paddingBottom: 55 },
         Platform.OS == "ios" && { paddingBottom: 20 },
       ]}
       className="flex-1"
     >
-      {/* Header */}
-      <View className="px-4 py-3">
-        <View className="bg-white rounded-2xl shadow-sm p-4 flex-row justify-between items-center">
-          <View>
-            <Text className="text-gray-500 text-sm">Good Morning!</Text>
-            <Text className="text-gray-800 text-lg font-bold">
-              Welcome to DineEasy
-            </Text>
+      {/* Enhanced Header */}
+      <View className="px-5 py-4">
+        <LinearGradient
+          colors={['#ffffff', '#f8fafc']}
+          className="rounded-3xl shadow-lg p-6"
+        >
+          <View className="flex-row justify-between items-center">
+            <View className="flex-1">
+              
+              <Text className="text-gray-900 text-2xl font-bold mt-1">
+                Welcome to DineEasy
+              </Text>
+              <Text className="text-gray-500 text-sm mt-1">
+                Find your perfect dining experience
+              </Text>
+            </View>
+            <View className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl items-center justify-center shadow-lg">
+              <Text className="text-white text-2xl">🍽️</Text>
+            </View>
           </View>
-          <View className="w-12 h-12 bg-orange-100 rounded-full items-center justify-center">
-            <Text className="text-orange-600 text-xl">🍽️</Text>
-          </View>
-        </View>
+        </LinearGradient>
       </View>
 
       <ScrollView 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 30 }}
       >
-        {/* Hero Section */}
-        <View className="mx-4 mb-6">
+        {/* Enhanced Hero Section */}
+        <View className="mx-5 mb-8">
           <LinearGradient
-            colors={['#ff7e5f', '#feb47b']}
+            colors={['#ff6b6b', '#ffa500', '#ff8c00']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            className="rounded-2xl p-6 shadow-lg"
+            className="rounded-3xl p-8 shadow-2xl"
           >
             <BlurView
-              intensity={Platform.OS === "android" ? 50 : 20}
+              intensity={Platform.OS === "android" ? 30 : 15}
               tint="light"
-              className="rounded-xl p-4 bg-white/20"
+              className="rounded-2xl p-6 bg-white/20 backdrop-blur-sm"
             >
-              <Text className="text-center text-2xl font-bold text-white mb-2">
+              <Text className="text-center text-3xl font-bold text-white mb-3">
                 Dine with your loved ones
               </Text>
-              <Text className="text-center text-white/90 text-sm">
-                Discover amazing restaurants and book your perfect table
+              <Text className="text-center text-white/90 text-base leading-relaxed mb-4">
+                Discover amazing restaurants and book your perfect table in just a few taps
               </Text>
+              <TouchableOpacity className="bg-white/30 py-3 px-6 rounded-2xl self-center">
+                <Text className="text-white font-bold text-base">
+                  Explore Now
+                </Text>
+              </TouchableOpacity>
             </BlurView>
           </LinearGradient>
         </View>
 
-        {/* Special Discounts Section */}
-        <View className="mb-4">
-          <View className="px-4 mb-3">
-            <View className="flex-row items-center justify-between">
-              <Text className="text-2xl text-gray-800 font-bold">
+        {/* Enhanced Special Offers Section */}
+        <View className="mb-8">
+          <View className="px-5 mb-4">
+            <View className="flex-row items-center justify-between mb-2">
+              <Text className="text-3xl text-gray-900 font-bold">
                 Special Offers
               </Text>
-              <TouchableOpacity>
-                <Text className="text-orange-500 font-medium">View All</Text>
+              <TouchableOpacity className="bg-orange-100 px-4 py-2 rounded-full">
+                <Text className="text-orange-600 font-semibold">View All</Text>
               </TouchableOpacity>
             </View>
-            <Text className="text-gray-500 text-sm mt-1">
-              Limited time deals you don't want to miss
+            <Text className="text-gray-600 text-base">
+              Exclusive deals you don't want to miss
             </Text>
           </View>
 
@@ -178,30 +222,30 @@ export default function Home() {
               renderItem={renderSpecialItem}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingRight: 16 }}
+              contentContainerStyle={{ paddingRight: 20 }}
               keyExtractor={(item, index) => `special-${index}`}
             />
           ) : (
-            <View className="h-32 justify-center items-center">
+            <View className="h-40 justify-center items-center">
               <ActivityIndicator size="large" color="#f97316" />
-              <Text className="text-gray-500 mt-2">Loading offers...</Text>
+              <Text className="text-gray-500 mt-3 text-base">Loading exclusive offers...</Text>
             </View>
           )}
         </View>
 
-        {/* Our Restaurants Section */}
-        <View className="mt-6">
-          <View className="px-4 mb-3">
-            <View className="flex-row items-center justify-between">
-              <Text className="text-2xl text-gray-800 font-bold">
+        {/* Enhanced Popular Restaurants Section */}
+        <View className="mt-4">
+          <View className="px-5 mb-4">
+            <View className="flex-row items-center justify-between mb-2">
+              <Text className="text-3xl text-gray-900 font-bold">
                 Popular Restaurants
               </Text>
-              <TouchableOpacity>
-                <Text className="text-orange-500 font-medium">View All</Text>
+              <TouchableOpacity className="bg-orange-100 px-4 py-2 rounded-full">
+                <Text className="text-orange-600 font-semibold">View All</Text>
               </TouchableOpacity>
             </View>
-            <Text className="text-gray-500 text-sm mt-1">
-              Highly rated restaurants near you
+            <Text className="text-gray-600 text-base">
+              Top-rated restaurants loved by diners
             </Text>
           </View>
 
@@ -211,41 +255,46 @@ export default function Home() {
               renderItem={renderRestaurantItem}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingRight: 16 }}
+              contentContainerStyle={{ paddingRight: 20 }}
               keyExtractor={(item, index) => `restaurant-${index}`}
             />
           ) : (
-            <View className="h-48 justify-center items-center">
+            <View className="h-60 justify-center items-center">
               <ActivityIndicator size="large" color="#f97316" />
-              <Text className="text-gray-500 mt-2">Loading restaurants...</Text>
+              <Text className="text-gray-500 mt-3 text-base">Loading amazing restaurants...</Text>
             </View>
           )}
         </View>
 
-        {/* Categories Section */}
-        <View className="px-4 mt-8 mb-4">
-          <Text className="text-xl text-gray-800 font-bold mb-4">
-            Browse by Category
-          </Text>
-          <View className="flex-row flex-wrap justify-between">
-            {[
-              { name: 'Fine Dining', emoji: '🍷', color: 'bg-purple-100' },
-              { name: 'Fast Food', emoji: '🍔', color: 'bg-yellow-100' },
-              { name: 'Cafe', emoji: '☕', color: 'bg-orange-100' },
-              { name: 'Bar', emoji: '🍻', color: 'bg-blue-100' },
-            ].map((category, index) => (
-              <TouchableOpacity
-                key={index}
-                className={`${category.color} rounded-xl p-4 mb-3`}
-                style={{ width: '48%' }}
-                activeOpacity={0.7}
-              >
-                <Text className="text-2xl mb-2">{category.emoji}</Text>
-                <Text className="text-gray-700 font-semibold">
-                  {category.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
+        {/* Quick Stats Section */}
+        <View className="px-5 mt-10 mb-6">
+          <View className="bg-white rounded-3xl p-6 shadow-lg">
+            <Text className="text-xl font-bold text-gray-900 mb-4 text-center">
+              Why Choose DineEasy?
+            </Text>
+            <View className="flex-row justify-around">
+              <View className="items-center">
+                <View className="w-12 h-12 bg-green-100 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-green-600 text-xl">🏆</Text>
+                </View>
+                <Text className="text-gray-900 font-bold text-lg">500+</Text>
+                <Text className="text-gray-500 text-sm">Restaurants</Text>
+              </View>
+              <View className="items-center">
+                <View className="w-12 h-12 bg-blue-100 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-blue-600 text-xl">⚡</Text>
+                </View>
+                <Text className="text-gray-900 font-bold text-lg">2 Min</Text>
+                <Text className="text-gray-500 text-sm">Quick Booking</Text>
+              </View>
+              <View className="items-center">
+                <View className="w-12 h-12 bg-purple-100 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-purple-600 text-xl">💎</Text>
+                </View>
+                <Text className="text-gray-900 font-bold text-lg">4.9</Text>
+                <Text className="text-gray-500 text-sm">User Rating</Text>
+              </View>
+            </View>
           </View>
         </View>
       </ScrollView>
