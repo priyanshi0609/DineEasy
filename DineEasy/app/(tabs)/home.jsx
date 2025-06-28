@@ -16,11 +16,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import restaurants from "../../store/restaurants";
 import { LinearGradient } from 'expo-linear-gradient';
+import uploadData from "../../config/bulkupload";
 
 const { width } = Dimensions.get('window');
 
 export default function Home() {
   const router = useRouter();
+  uploadData();
 
   const renderRestaurantItem = ({ item, index }) => (
     <TouchableOpacity 
