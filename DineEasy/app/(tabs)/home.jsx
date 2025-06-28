@@ -4,7 +4,6 @@ import {
   Image,
   Platform,
   ScrollView,
-  ImageBackground,
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
@@ -14,15 +13,19 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
-import restaurants from "../../store/restaurants";
+//import {restaurants}from "../../store/restaurants";
 import { LinearGradient } from 'expo-linear-gradient';
-import uploadData from "../../config/bulkupload";
+import { db } from "../../config/firebaseConfig";
+import { collection, getDocs, query } from "firebase/firestore";
+
 
 const { width } = Dimensions.get('window');
 
 export default function Home() {
   const router = useRouter();
-  uploadData();
+  const[restaurants, setRestaurants] = useState([]);
+  
+  
 
   const renderRestaurantItem = ({ item, index }) => (
     <TouchableOpacity 
@@ -137,6 +140,20 @@ export default function Home() {
       </LinearGradient>
     </TouchableOpacity>
   );
+  
+  const getRestaurants = async () => {
+    const q = query(collection(db, "restaurants"));
+    const res = await getDocs(q);
+
+    res.forEach((item) => {
+      setRestaurants((prev) => [...prev, item.data()]);
+    });
+  };
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+
 
   return (
     <SafeAreaView
