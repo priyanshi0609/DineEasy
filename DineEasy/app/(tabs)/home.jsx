@@ -28,7 +28,7 @@ export default function Home() {
   
 
   const renderRestaurantItem = ({ item, index }) => (
-    <TouchableOpacity 
+    <TouchableOpacity onPress={()=>router.push(`/restaurant/${item.name}`)}
       style={{
         width: width * 0.8,
         marginRight: 20,
@@ -83,7 +83,7 @@ export default function Home() {
   );
 
   const renderSpecialItem = ({ item, index }) => (
-    <TouchableOpacity 
+    <TouchableOpacity  onPress={()=>router.push(`/restaurant/${item.name}`)}
       style={{
         width: width * 0.7,
         marginRight: 16,
